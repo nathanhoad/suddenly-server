@@ -9,12 +9,12 @@ import * as Path from 'path';
 import * as guessRootPath from 'guess-root-path';
 
 export interface ServerOptions {
-  views?: string;
+  views?: string[] | string;
   urlencodedOptions?: any;
 }
 
 const DEFAULT_SERVER_OPTIONS: ServerOptions = {
-  views: 'src/server/views',
+  views: ['dist/public', 'src/server/views'],
   urlencodedOptions: { extended: false }
 };
 
@@ -33,7 +33,7 @@ export function createServer(options: ServerOptions = {}): Application {
   server.use(helmet());
 
   server.set('view engine', 'ejs');
-  server.set('views', Path.join(guessRootPath(), options.views));
+  server.set('views', [].concat(options.views).map(v => Path.join(guessRootPath(), v)));
 
   return server;
 }
