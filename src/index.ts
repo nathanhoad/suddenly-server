@@ -132,9 +132,13 @@ export class InternalServerError extends ResponseError {
  * @param next
  */
 export function handleError(error: ResponseError, request: Request, response: Response, next: NextFunction) {
+  if (process.env.NODE_ENV === 'development' || (process.env.LOG || '').includes('errors')) {
+    console.error(error.stack);
+  }
+
   if (request.headers['content-type'] === 'application/json') {
     response.status(error.status || 500).json({ status: error.status, message: error.message });
   } else {
-    response.status(error.status || 500).render(`${error.status}.html.ejs`);
+    response.status(error.status || 500).render(`${error.status || 500}.html.ejs`);
   }
 }
