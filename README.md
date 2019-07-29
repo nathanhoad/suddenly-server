@@ -19,8 +19,8 @@ server.use(
         '/users': Users,
         '/things': Things
       },
-      '/': Static
-    } /* override the error handler by passing a function here */
+      '/': Root
+    } /* , override the error handler by passing a function here */
   )
 );
 
