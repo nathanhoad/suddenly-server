@@ -20,7 +20,8 @@ export interface ServerOptions {
 
 const DEFAULT_SERVER_OPTIONS: ServerOptions = {
   static: {
-    '/assets': 'dist/public'
+    '/assets': 'dist/public',
+    '/': 'src/server/public'
   },
   views: ['dist/public', 'src/server/views'],
   urlencodedOptions: { extended: false }
